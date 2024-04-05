@@ -4,59 +4,29 @@ public class Bai1
 
 {
     public static void main(String[] args) {
-        String line;
-        int count = 0;
-        File file = new File("data.txt");
         try
         {
-            boolean value = file.createNewFile();
-            if (value){
-                System.out.println("File da duoc tao");
+            // Noi filereader voi 1 file text
+            File file = new File("data.txt");
+            FileReader file2 = new FileReader(file);
+
+            // Noi BufferReader voi fileReader
+            BufferedReader br = new BufferedReader(file2);
+
+            String line = null;
+            int count = 0;
+            // Doc tung dong cho den khi khong con gi de doc nua
+            while ((line=br.readLine())!=null){
+                String words[] = line.split(" ");
+                count = count + words.length;
             }
-            else {
-                System.out.println("cook roi em");
-            }
-        }catch (Exception e){
-            e.getStackTrace();
-        }
-
-        //Đọc file
-        FileReader file2 = null;
-        try
-        {
-            file2 = new FileReader("data.txt");
-        } catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-        BufferedReader br = new BufferedReader(file2);
-
-
-
-
-        //Nhan từng dòng cho đến hết file
-        while(true) {
-            try
-            {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
-            // Chia mỗi dòng thành các từ
-            String words[] = line.split(" ");
-            // Đếm từng từ
-            count = count + words.length;
-            System.out.println(line);
-        }
-
-        System.out.println(" Số từ hiện tại ở file là: " + count);
-        try
-        {
+            // In ra ket qua
+            System.out.println("So ky tu la" + count);
             br.close();
-        } catch (IOException e)
+
+        } catch (Exception e)
         {
-            throw new RuntimeException(e);
+            e.getStackTrace();
         }
     }
 }  

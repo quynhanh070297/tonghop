@@ -10,83 +10,52 @@ public class Bai3
     //Đề bài: Viết chương trình đọc nội dung từ file text và tìm và hiển thị các từ có độ dài lớn nhất trong file đó.
 
 
-    //B2: convert thành mảng string với mỗi từ là 1 phần tử.
-    //B3: tạo 1 list string để lưu các từ tìm được.
-    //B4: duyệt mảng tìm length lớn nhất, nếu leng của phần tử = leng lớn nhất thì add vào list, nếu lớn hơn length lớn nhất thì đổi list list mới và gán lại.
-    //B5: tạo vòng lặp in ra các từ có độ dài lớn nhất, và độ dài của chúng.
+
+
+
     public static void main(String[] args)
     {
-        // Tao 2 list de hung
-        List<String> stringList = new ArrayList<>();
-        List<String> bestLenght = new ArrayList<>();
-        String line;
-        int count = 0;
-        File file = new File("string.txt");
         try
-        {
-            boolean value = file.createNewFile();
-            if (value){
-                System.out.println("File da duoc tao");
+        {   //B1: tạo 1 list string để lưu các từ tìm được.
+            List<String> maxLeght = new ArrayList<>();
+            // Noi filereader voi 1 file text
+            File file = new File("data.txt");
+            FileReader file2 = new FileReader(file);
+
+            // Noi BufferReader voi fileReader
+            BufferedReader br = new BufferedReader(file2);
+
+            String line = null;
+            // Doc tung dong cho den khi khong con gi de doc nua
+            while ((line=br.readLine())!=null){
+                String words[] = line.split(" ");
+                for (int i = 0; i < words.length; i++)
+                {
+                    maxLeght.add(words[i]);
+                }
             }
-            else {
-                System.out.println("cook roi em");
+            //B4: duyệt mảng tìm length lớn nhất, nếu leng của phần tử = leng lớn
+            // nhất thì add vào list, nếu lớn hơn length lớn nhất thì đổi list list mới và gán lại.
+            String max = "";
+            for (String s : maxLeght)
+            { if (s.length()>max.length()){
+                max= s;
             }
-        }catch (Exception e){
-            e.getStackTrace();
-        }
-
-        //Đọc file
-        FileReader file2 = null;
-        try
-        {
-            file2 = new FileReader("data.txt");
-        } catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-        BufferedReader br = new BufferedReader(file2);
-
-
-
-
-        //Nhan từng dòng cho đến hết file
-        while(true) {
-            try
+            }
+            for (String string : maxLeght)
+            { if (max.length() == string.length())
             {
-                if ((line = br.readLine()) == null) break;
-            } catch (IOException e)
-            {
-                throw new RuntimeException(e);
+                System.out.println("Cac tu co do dai lon nhat la :" + string);
+                System.out.println(string);
             }
-            // Chia mỗi dòng thành các từ
-            String words[] = line.split(" ");
-            // Đếm từng từ
-            stringList.addAll(Arrays.asList(words));
-            count = count + words.length;
-            System.out.println(line);
-        }
-        String maxLenght = stringList.get(0);
-        for (int i = 0; i < stringList.size(); i++)
-        { if (stringList.get(i).length()> maxLenght.length()){
-            maxLenght = stringList.get(i);
-        }
-        // in cac tu co do dai bang maxlenght neu co
-        }
-        for (String s : stringList)
-        {
-            if (s.length()==maxLenght.length()){
-                System.out.println("Tu co do dai lon nhat la"+ s);
+            //B5: tạo vòng lặp in ra các từ có độ dài lớn nhất, và độ dài của chúng.
+
             }
-        }
-
-
-        System.out.println(" Số từ hiện tại ở file là: " + count);
-        try
-        {
+            // In ra ket qua
             br.close();
-        } catch (IOException e)
+        } catch (Exception e)
         {
-            throw new RuntimeException(e);
+            e.getStackTrace();
         }
     }
 }

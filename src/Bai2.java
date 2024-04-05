@@ -8,34 +8,36 @@ public class Bai2
         //[Bài tập] Copy file nhị phân
     //Mục đích
     //Luyện tập đọc/ghi file nhị phân với các lớp được dẫn xuất từ InputStream/OutputStream
-    //Mô tả bài toán
-
-    //Chương trình sao chép tệp nguồn vào tệp tin đích và hiển thị số byte trong tệp. Chương trình nên cảnh báo người dùng nếu tệp nguồn không tồn tại hoặc nếu tập tin đích đã tồn tại.
-    //Để sao chép nội dung từ tệp tin nguồn đến tệp tin đích, bạn nên sử dụng luồng đầu vào để đọc byte từ tệp nguồn và luồng đầu ra để gửi byte đến tệp tin đích, bất kể nội dung của tệp.
-    //Hướng dẫn nộp bài:
-    //up bài tập lên github
-    //paste link github vào phần nộp bài
         public static void main(String[] args) {
             //Viết một chương trình cho phép người dùng sao chép các tập tin.
             // Người sử dụng cần phải cung cấp một tập tin nguồn (source file) và một tập tin đích (target file).
-            String strSourceFile = "source.txt";
-            String strTargetFile = "target.txt";
+            String strSourceFile = "/Users/hoanganh/QAhocJAVA/IO-File/src/source.txt";
+            String strTargetFile = "/Users/hoanganh/QAhocJAVA/IO-File/src/target.txt";
 
             try {
+                // Tạo một luồng đầu vào bằng cách đọc một file
                 FileInputStream fin = new FileInputStream(strSourceFile);
+                // Tạo một luồng đầu ra bằng cách đọc một file
                 FileOutputStream fout = new FileOutputStream(strTargetFile);
+                // Mảng để mỗi lần đọc các byte từ luồng thì tạm thời để lên đó
+                // Ta dùng mảng 1024 byte
+
                 byte[] b = new byte[1024];
                 int noOfBytes = 0;
+                // Đọc các byte trong luồng và gán lên các phần tử của mảng.
+                // Giá trị i là số đọc được của 1 lần. (i sẽ <= 10).
+                // Khi không còn phần tử trong luồng i sẽ = -1
                 while ((noOfBytes = fin.read(b)) != -1) {
                     fout.write(b, 0, noOfBytes);
                 }
                 System.out.println("Da sao chep file!");
+                //Dong luong
                 fin.close();
                 fout.close();
             } catch (FileNotFoundException fnf) {
-                System.out.println("Specified file not found :" + fnf);
+                System.out.println("Khong tim thay file :" + fnf);
             } catch (IOException ioe) {
-                System.out.println("Error while copying file :" + ioe);
+                System.out.println(" Loii :" + ioe);
             }
         }
 }
